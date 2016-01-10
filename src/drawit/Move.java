@@ -35,7 +35,7 @@ public class Move {
                 if (tempX > 1) {
                     moveLeft(obj);
                     setX(tempX);
-                     obj.addX(this.x);
+                    obj.addX(this.x);
                     obj.addY(this.y);
                 }
                 break;

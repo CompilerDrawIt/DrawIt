@@ -7,6 +7,7 @@ package drawit;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 
 /**
@@ -14,7 +15,7 @@ import javax.swing.JFrame;
  * @author Red Viper
  */
 public class DrawIt extends JFrame {
-
+    private int n;
     private int i;
     /*
     ** current point x of drawing
@@ -24,8 +25,10 @@ public class DrawIt extends JFrame {
     ** current point y of drawing
      */
     public static int y;
-
-    ObjectDrawing obj;
+    /*
+    ** List of objects from the syntax Draw var
+     */
+    private ArrayList<ObjectDrawing> objects;
 
     Move move = new Move();
 
@@ -40,26 +43,52 @@ public class DrawIt extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        setPoint(obj, 5, 5);
-        obj = new ObjectDrawing(x, y);
-        move(Constants.direction.UPWARDRIGHT);
-        move(Constants.direction.UP);
+        objects = new ArrayList<ObjectDrawing>();
 
+        //example call for draw when draw is inputted
+        draw("house", 20, 20);
+        //example call for move
+        move(Constants.direction.LEFT,"house");
+    }
+    
+    
+    public void draw(String objName, int x, int y) {
+        objects.add(new ObjectDrawing(objName));
+        //setPoint
+        for (ObjectDrawing obj : objects) {
+            if (obj.getObjectName().equals(objName)) {
+                obj.setPoint(x, y);
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param n number of loop
+     */
+    public void times(int n) {
 
     }
 
-    public void move(Constants.direction direction) {
-        move.move(direction, obj, x, y);
+    /**
+     * method to call for copy
+     * @param objectname the object to be copied
+     */
+    public void copy(String objectname) {
+        
     }
 
     /*
-    ** sets the starting point for drawing in the frame 
-    ** Frame is like a cartersian plane
-    ** where (1,1) is the first box at bottom left
+    ** method to call for move
      */
-    public void setPoint(ObjectDrawing obj, int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void move(Constants.direction direction, String objectName) {
+        n = 0;
+        while(objects.size() > n && objects.get(n).getObjectName() != (objectName)){
+            n++;        
+        }
+        if(objects.get(n).getObjectName().equals(objectName)){
+            move.move(direction, objects.get(n), x, y);
+        }
     }
 
     @Override
@@ -72,12 +101,8 @@ public class DrawIt extends JFrame {
             g.drawLine(0, i * 25, 700, i * 25);
             g.drawLine(i * 25, 0, i * 25, 700);
         }
-        g.setColor(Color.black);
-        for (i = 0; i < obj.getSize(); i++) {
-            g.fillRect(obj.getX(i) * 25 - 25, 700 - (obj.getY(i) * 25), 25, 25);
-//            System.out.println("x[" + i + "]: " + obj.getX(i));
-//            System.out.println("y[" + i + "]: " + obj.getY(i));
-
+        for (ObjectDrawing obj : objects) {
+            obj.draw(g);
         }
     }
 

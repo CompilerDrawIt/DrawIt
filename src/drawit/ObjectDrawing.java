@@ -5,7 +5,10 @@
  */
 package drawit;
 
+import static drawit.DrawIt.x;
+import static drawit.DrawIt.y;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.List;
 import java.util.ArrayList;
 
@@ -15,6 +18,10 @@ import java.util.ArrayList;
  * @author Red Viper
  */
 public class ObjectDrawing {
+    
+    private int i;
+    
+    private String objectName;
 
     /*
     ** array of x indexes of the object drawn specified by the move function
@@ -29,10 +36,9 @@ public class ObjectDrawing {
      */
     private int color;
 
-    public ObjectDrawing(int x, int y) {
+    public ObjectDrawing(String name) {
         initialize();
-        addX(x);
-        addY(y);
+        this.objectName = name;
         
     }
 
@@ -93,5 +99,38 @@ public class ObjectDrawing {
     public void addY(int num) {
         y.add(num);
     }
+    
+    public void draw(Graphics g){
+        g.setColor(Color.black);
+        for (i = 0; i < getSize(); i++) {
+            g.fillRect(getX(i) * 25 - 25, 700 - (getY(i) * 25), 25, 25);
+        }
+    }
 
+    /**
+     * @return the objectName
+     */
+    public String getObjectName() {
+        return objectName;
+    }
+
+    /**
+     * @param objectName the objectName to set
+     */
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+    
+    /*
+    ** sets the starting point for drawing in the frame 
+    ** Frame is like a cartersian plane
+    ** where (1,1) is the first box at bottom left
+     */
+    public void setPoint( int x, int y) {
+        addX(x);
+        addY(y);
+        DrawIt.x = x;
+        DrawIt.y = y;
+    }
+    
 }

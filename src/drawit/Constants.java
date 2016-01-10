@@ -22,6 +22,9 @@ public class Constants {
     }
     
     public static enum color{
-        
+        BLACK,
+        RED,
+        GREEN,
+        BLUE
     }
 }
