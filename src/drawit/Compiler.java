@@ -6,8 +6,7 @@
 package drawit;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.List;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,11 +15,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
@@ -79,18 +76,19 @@ public class Compiler extends JPanel {
     public void parse(String[] line) {
         Pattern testAll = Pattern.compile("((draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*))|"
                 + "((move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*))|"
-                + "((setPoint)(\\s*)(\\()(\\s*)(\\d)(\\s*)(,)(\\s*)(\\d)(\\s*)(\\))(\\s*))|"
+                + "((setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*))|"
                 + "((atTheTopOf|atTheRightOf|atTheLeftOf|insideOf|copy)(\\s*)([a-zA-Z]+)(\\s*))|"
                 + "((fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*))|"
                 + "((\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\})");
         Pattern draw = Pattern.compile("(draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*)");
         Pattern move = Pattern.compile("(move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*)");
-        Pattern setPoint = Pattern.compile("(setPoint)(\\s*)(\\()(\\s*)(\\d)(\\s*)(,)(\\s*)(\\d)(\\s*)(\\))(\\s*)");
+        Pattern setPoint = Pattern.compile("(setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*)");
         Pattern direction = Pattern.compile("(atTheTopOf|atTheRightOf|atTheLeftOf|insideOf|copy)(\\s*)([a-zA-Z]+)(\\s*)");
         Pattern fill = Pattern.compile("(fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*)");
         Pattern loop = Pattern.compile("(\\d)(\\s*)(times)(\\s*)(\\{)(\\s*)");
         Matcher m;
         int braceCnt = 0;
+        boolean correctSyntax = true;
         for (int i = 0; i < line.length; i++) {
             m = testAll.matcher(line[i]);
             if (!m.find()) {
@@ -99,91 +97,97 @@ public class Compiler extends JPanel {
                 } catch (BadLocationException ex) {
                     Logger.getLogger(Compiler.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                correctSyntax = false;
             }
-
-            m = move.matcher(line[i]);
-            if (m.find()) {
-                System.out.println(m.group(5));
-                System.out.println(" ni sud");
-                switch (m.group(5)) {
-                    case "right":
-                        dir = Constants.direction.RIGHT;
-                        break;
-                    case "up":
-                        dir = Constants.direction.UP;
-                        break;
-                    case "down":
-                        dir = Constants.direction.DOWN;
-                        break;
-                    case "left":
-                        dir = Constants.direction.LEFT;
-                        break;
-                    case "upwardRight":
-                        dir = Constants.direction.UPWARDRIGHT;
-                        break;
-                    case "upwardLeft":
-                        dir = Constants.direction.UPWARDLEFT;
-                        break;
-                    case "downwardRight":
-                        dir = Constants.direction.DOWNWARDRIGHT;
-                        break;
-                    case "downwardLeft":
-                        dir = Constants.direction.DOWNWARDLEFT;
-                        break;
+            //if (correctSyntax) {
+                m = move.matcher(line[i]);
+                if (m.find()) {
+                    System.out.println(m.group(5));
+                    System.out.println(" ni sud");
+                    switch (m.group(5)) {
+                        case "right":
+                            dir = Constants.direction.RIGHT;
+                            break;
+                        case "up":
+                            dir = Constants.direction.UP;
+                            break;
+                        case "down":
+                            dir = Constants.direction.DOWN;
+                            break;
+                        case "left":
+                            dir = Constants.direction.LEFT;
+                            break;
+                        case "upwardRight":
+                            dir = Constants.direction.UPWARDRIGHT;
+                            break;
+                        case "upwardLeft":
+                            dir = Constants.direction.UPWARDLEFT;
+                            break;
+                        case "downwardRight":
+                            dir = Constants.direction.DOWNWARDRIGHT;
+                            break;
+                        case "downwardLeft":
+                            dir = Constants.direction.DOWNWARDLEFT;
+                            break;
+                    }
+                    d.move(dir, objName);
+                    System.out.println("nisud");
                 }
-                d.move(dir,objName);
-                System.out.println("nisud");
-            }
-            m = setPoint.matcher(line[i]);
-            if (m.find()) {
-                System.out.println(m.group(5) + " " + m.group(9));
-                x = Integer.parseInt(m.group(5));
-                y = Integer.parseInt(m.group(9));
-                System.out.println("x: " + x);
-                System.out.println("y: " + y);
-            }
-            m = fill.matcher(line[i]);
-            if (m.find()) {
-                System.out.println(m.group(5));
-            }
-            m = loop.matcher(line[i]);
-            if (m.find()) {
-                System.out.println(m.group(1));
-                braceCnt++;
-            }
-            m = draw.matcher(line[i]);
-            if (m.find()) {
-                System.out.println(m.group(3));
-                braceCnt++;
-                d.draw(m.group(3), x, y);
-                objName = m.group(3);
-            }
-            m = direction.matcher(line[i]);
-            if (m.find()) {
-                if (m.group(1).equals("atTheTopOf")) {
+                m = setPoint.matcher(line[i]);
+                if (m.find()) {
+                    System.out.println(m.group(5) + " " + m.group(9));
+                    x = Integer.parseInt(m.group(5));
+                    y = Integer.parseInt(m.group(9));
+                    System.out.println("x: " + x);
+                    System.out.println("y: " + m.group(9));
+                    d.setPoint(objName, x, y);
+                }
+                m = fill.matcher(line[i]);
+                if (m.find()) {
+                    System.out.println(m.group(5));
+                }
+                m = loop.matcher(line[i]);
+                if (m.find()) {
+                    System.out.println(m.group(1));
+                    braceCnt++;
+                }
+                m = draw.matcher(line[i]);
+                if (m.find()) {
                     System.out.println(m.group(3));
-                } else if (m.group(1).equals("atTheRightOf")) {
+                    braceCnt++;
+                    d.draw(m.group(3), x, y);
+                    objName = m.group(3);
+                }
+                m = direction.matcher(line[i]);
+                if (m.find()) {
+                    if (m.group(1).equals("atTheTopOf")) {
+                        System.out.println(m.group(3));
+                    } else if (m.group(1).equals("atTheRightOf")) {
 
-                } else if (m.group(1).equals("atTheLeftOf")) {
+                    } else if (m.group(1).equals("atTheLeftOf")) {
 
-                } else if (m.group(1).equals("insideOf")) {
+                    } else if (m.group(1).equals("insideOf")) {
 
-                } else if (m.group(1).equals("copy")) {
+                    } else if (m.group(1).equals("copy")) {
 
+                    }
+                }
+
+                if (line[i].matches("\\}")) {
+                    System.out.println(line.length);
+                    braceCnt--;
+                }
+
+                if (i == line.length - 1 && braceCnt != 0) {
+                    JOptionPane.showMessageDialog(null, "Take a look at your braces!");
+                    System.out.println(braceCnt);
                 }
             }
 
-            if (line[i].matches("\\}")) {
-                System.out.println(line.length);
-                braceCnt--;
-            }
-
-            if (i == line.length - 1 && braceCnt != 0) {
-                JOptionPane.showMessageDialog(null, "Take a look at your braces!");
-            }
-
+       // }
+        if (correctSyntax) {
+            d.initialize();
         }
-        d.initialize();
     }
 
     public void parseColor() {

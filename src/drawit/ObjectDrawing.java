@@ -5,11 +5,9 @@
  */
 package drawit;
 
-import static drawit.DrawIt.x;
-import static drawit.DrawIt.y;
+import static drawit.DrawIt.boxSize;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -103,7 +101,7 @@ public class ObjectDrawing {
     public void draw(Graphics g){
         g.setColor(Color.black);
         for (i = 0; i < getSize(); i++) {
-            g.fillRect(getX(i) * 25 - 25, 700 - (getY(i) * 25), 25, 25);
+            g.fillRect(getX(i) * boxSize - boxSize, 700 - (getY(i) * boxSize), boxSize, boxSize);
         }
     }
 

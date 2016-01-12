@@ -15,6 +15,7 @@ import javax.swing.JFrame;
  * @author Red Viper
  */
 public class DrawIt extends JFrame {
+    public static final int boxSize = 25;
     private int n;
     private int i;
     /*
@@ -40,7 +41,7 @@ public class DrawIt extends JFrame {
         setTitle("Draw It");
         setSize(700, 700);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
         
@@ -55,13 +56,17 @@ public class DrawIt extends JFrame {
         System.out.println("name:"+objName);
         objects.add(new ObjectDrawing(objName));
         //setPoint
-        for (ObjectDrawing obj : objects) {
+        
+
+        //move(Constants.direction.UPWARDRIGHT, objName);
+    }
+    
+    public void setPoint(String objName, int x, int y){
+       for (ObjectDrawing obj : objects) {
             if (obj.getObjectName().equals(objName)) {
                 obj.setPoint(x, y);
             }
         }
-
-        //move(Constants.direction.UPWARDRIGHT, objName);
     }
 
     /**
@@ -103,8 +108,8 @@ public class DrawIt extends JFrame {
         **   28x27 boxes  at 25x25 pixels each
          */
         for (i = 1; i <= 27; i++) {
-            g.drawLine(0, i * 25, 700, i * 25);
-            g.drawLine(i * 25, 0, i * 25, 700);
+            g.drawLine(0, i * boxSize, 700, i * boxSize);
+            g.drawLine(i * boxSize, 0, i * boxSize, 700);
         }
         for (ObjectDrawing obj : objects) {
             obj.draw(g);
@@ -119,5 +124,4 @@ public class DrawIt extends JFrame {
         Editor.setVisible(true);
         Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
 }
