@@ -10,5 +10,5 @@ package drawit;
  * @author Red Viper
  */
 public class SyntaxAnalyzer {
-    
+ 
 }

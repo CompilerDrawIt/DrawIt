@@ -25,15 +25,15 @@ public class DrawIt extends JFrame {
     ** current point y of drawing
      */
     public static int y;
-    /*
-    ** List of objects from the syntax Draw var
+    /**
+     * List of objects from the syntax Draw var
      */
     private ArrayList<ObjectDrawing> objects;
 
     Move move = new Move();
 
     public DrawIt() {
-        initialize();
+        objects = new ArrayList<ObjectDrawing>();
     }
 
     public void initialize() {
@@ -43,16 +43,16 @@ public class DrawIt extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-        objects = new ArrayList<ObjectDrawing>();
+        
 
         //example call for draw when draw is inputted
-        draw("house", 20, 20);
+        //draw("house", 20, 20);
         //example call for move
-        move(Constants.direction.LEFT,"house");
+        //move(Constants.direction.LEFT, "house");
     }
-    
-    
+
     public void draw(String objName, int x, int y) {
+        System.out.println("name:"+objName);
         objects.add(new ObjectDrawing(objName));
         //setPoint
         for (ObjectDrawing obj : objects) {
@@ -60,10 +60,12 @@ public class DrawIt extends JFrame {
                 obj.setPoint(x, y);
             }
         }
+
+        //move(Constants.direction.UPWARDRIGHT, objName);
     }
 
     /**
-     * 
+     *
      * @param n number of loop
      */
     public void times(int n) {
@@ -72,21 +74,24 @@ public class DrawIt extends JFrame {
 
     /**
      * method to call for copy
+     *
      * @param objectname the object to be copied
      */
     public void copy(String objectname) {
-        
+
     }
 
-    /*
-    ** method to call for move
+    /**
+     * method to call for move
      */
     public void move(Constants.direction direction, String objectName) {
         n = 0;
-        while(objects.size() > n && objects.get(n).getObjectName() != (objectName)){
-            n++;        
+        System.out.println("hi"+objectName);
+        while (objects.size()-1 > n && objects.get(n).getObjectName() != (objectName)) {
+            n++;
         }
-        if(objects.get(n).getObjectName().equals(objectName)){
+
+        if (objects.get(n).getObjectName().equals(objectName)) {
             move.move(direction, objects.get(n), x, y);
         }
     }
@@ -108,7 +113,11 @@ public class DrawIt extends JFrame {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        DrawIt d = new DrawIt();
+        JFrame Editor= new JFrame("Draw it");
+        Editor.setBounds(50, 100, 800, 500);
+        Editor.getContentPane().add(new Compiler());
+        Editor.setVisible(true);
+        Editor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
 }

@@ -37,7 +37,7 @@ public class Move {
                     setX(tempX);
                     obj.addX(this.x);
                     obj.addY(this.y);
-                }
+                }                
                 break;
 
             case UP:
