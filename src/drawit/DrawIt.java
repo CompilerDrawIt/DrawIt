@@ -7,6 +7,7 @@ package drawit;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -15,6 +16,8 @@ import javax.swing.JFrame;
  * @author Red Viper
  */
 public class DrawIt extends JFrame {
+    private Image dbImage;
+    private Graphics dbg;
     public static final int boxSize = 25;
     private int n;
     private int i;
@@ -101,8 +104,14 @@ public class DrawIt extends JFrame {
         }
     }
 
-    @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g){
+        dbImage = createImage(getWidth(), getHeight());
+        dbg = dbImage.getGraphics();
+        draw(dbg);
+        g.drawImage(dbImage, 0, 0, this);
+    }
+    
+    public void draw(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
         /*
         **   28x27 boxes  at 25x25 pixels each
