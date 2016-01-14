@@ -76,8 +76,11 @@ public class DrawIt extends JFrame {
      *
      * @param n number of loop
      */
-    public void times(int n) {
-
+    public void times(int n, String x) {
+        int i=0;
+        for( ; i<n;i++){
+            
+        }
     }
 
     /**

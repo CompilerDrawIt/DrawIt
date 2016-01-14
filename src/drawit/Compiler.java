@@ -149,8 +149,12 @@ public class Compiler extends JPanel {
                 }
                 m = loop.matcher(line[i]);
                 if (m.find()) {
+                    String[] loopline;
+                    int j = 0;
                     System.out.println(m.group(1));
                     braceCnt++;
+                    int counter = Integer.parseInt(m.group(1));
+                    d.times(counter, );
                 }
                 m = draw.matcher(line[i]);
                 if (m.find()) {
