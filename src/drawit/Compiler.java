@@ -150,11 +150,20 @@ public class Compiler extends JPanel {
                 m = loop.matcher(line[i]);
                 if (m.find()) {
                     String[] loopline;
-                    int j = 0;
+                    int j;
+                    System.out.println("Test");
                     System.out.println(m.group(1));
                     braceCnt++;
+                    
+                    for(j=i;!(line[j].matches("\\}"));j++){
+                    }
+                    System.out.println("j-i: "+ (j-i));
+                    loopline = new String[j-i];
+                    for(int k=0; k<=j-i; k++){
+                        loopline[k]="";
+                    }
                     int counter = Integer.parseInt(m.group(1));
-                    d.times(counter, );
+                    
                 }
                 m = draw.matcher(line[i]);
                 if (m.find()) {
