@@ -79,7 +79,7 @@ public class Compiler extends JPanel {
                 + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$))|"
                 + "((^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$))|"
                 + "((^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
-                + "((^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
+                + "((^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}\\s*$)");
         Pattern draw = Pattern.compile("(^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$)");
         Pattern move = Pattern.compile("(^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$)");
         Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$)");
@@ -174,7 +174,7 @@ public class Compiler extends JPanel {
                     }
                 }
 
-                if (line[i].matches("\\}")) {
+                if (line[i].matches("(\\s*)(\\})(\\s*)")) {
                     System.out.println(line.length);
                     braceCnt--;
                 }
