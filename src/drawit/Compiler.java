@@ -79,7 +79,7 @@ public class Compiler extends JPanel {
                 + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$))|"
                 + "((^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$))|"
                 + "((^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
-                + "((^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}\\s*$)");
+                + "((^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
         Pattern draw = Pattern.compile("(^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$)");
         Pattern move = Pattern.compile("(^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$)");
         Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$)");
@@ -149,8 +149,35 @@ public class Compiler extends JPanel {
                 }
                 m = loop.matcher(line[i]);
                 if (m.find()) {
-                    System.out.println(m.group(1));
+                    String[] loopline;
+                    int j;
+                    System.out.println("Test");
+              
                     braceCnt++;
+                    System.out.println("braceCnt: "+ braceCnt);
+                    for(j=i;!(line[j].matches("\\}"));j++){
+                    }
+                    System.out.println("j: "+ j);
+                    System.out.println("i: "+ i);
+                    System.out.println("j-i: "+ (j-i));
+                    loopline = new String[j-i-1];
+                    
+                    System.out.println("loopline length: "+ loopline.length);
+                    int k, l;
+                    for(k=i+1, l=0; k<j; k++, l++){
+                        loopline[l]=line[k];
+                    }
+                    i=j;
+                    System.out.println("k: " + k);
+                    System.out.println("l: " + l);
+                    int counter = Integer.parseInt(m.group(1));
+                    System.out.println("counter: " + counter);
+                    
+                    for(int h=0; h<counter;h++){
+                        parse(loopline);
+                    }
+                    
+                    
                 }
                 m = draw.matcher(line[i]);
                 if (m.find()) {
@@ -174,7 +201,7 @@ public class Compiler extends JPanel {
                     }
                 }
 
-                if (line[i].matches("(\\s*)(\\})(\\s*)")) {
+                if (line[i].matches("\\}")) {
                     System.out.println(line.length);
                     braceCnt--;
                 }
