@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 public class DrawIt extends JFrame {
     private Image dbImage;
     private Graphics dbg;
-    public static final int boxSize = 25;
+    public static final int boxSize = 10;
     private int n;
     private int i;
     /*
@@ -30,7 +30,7 @@ public class DrawIt extends JFrame {
      */
     public static int y;
     /**
-     * List of objects from the syntax Draw var
+     * List of objects for var from the syntax Draw var
      */
     private ArrayList<ObjectDrawing> objects;
 
@@ -114,9 +114,9 @@ public class DrawIt extends JFrame {
     public void draw(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
         /*
-        **   28x27 boxes  at 25x25 pixels each
+        **   69x70 boxes  at 10x10 pixels each
          */
-        for (i = 1; i <= 27; i++) {
+        for (i = 1; i <= 69; i++) {
             g.drawLine(0, i * boxSize, 700, i * boxSize);
             g.drawLine(i * boxSize, 0, i * boxSize, 700);
         }
