@@ -39,7 +39,7 @@ public class Compiler extends JPanel {
     DrawIt d = new DrawIt();
     Integer z;
     Constants.direction dir;
-    String objName;
+    String objName,objL, objN;
 
     public Compiler() {
         initializeWindow();
@@ -190,12 +190,26 @@ public class Compiler extends JPanel {
                 if (m.find()) {
                     if (m.group(1).equals("atTheTopOf")) {
                         System.out.println(m.group(3));
+                        objL= m.group(3);
+                        objN= objName;
+                        System.out.println("name: "+objN);
+                        d.atTheTopOf(objL,objN);
+
                     } else if (m.group(1).equals("atTheRightOf")) {
-
+                        objL= m.group(3);
+                        objN= objName;
+                        System.out.println("name: "+objN);
+                        d.atTheRightOf(objL,objN);
                     } else if (m.group(1).equals("atTheLeftOf")) {
-
+                        objL= m.group(3);
+                        objN= objName;
+                        System.out.println("name: "+objN);
+                        d.atTheLeftOf(objL,objN);
                     } else if (m.group(1).equals("insideOf")) {
-
+                        objL= m.group(3);
+                        objN= objName;
+                        System.out.println("name: "+objN);
+                        d.insideOf(objL,objN);
                     } else if (m.group(1).equals("copy")) {
 
                     }
