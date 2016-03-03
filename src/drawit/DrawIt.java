@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 public class DrawIt extends JFrame {
     private Image dbImage;
     private Graphics dbg;
-    public static final int boxSize = 10;
+    public static final int boxSize = 3;
     private int n;
     private int i;
     /*
@@ -116,7 +116,7 @@ public class DrawIt extends JFrame {
         /*
         **   69x70 boxes  at 10x10 pixels each
          */
-        for (i = 1; i <= 69; i++) {
+        for (i = 1; i <= 232; i++) {
             g.drawLine(0, i * boxSize, 700, i * boxSize);
             g.drawLine(i * boxSize, 0, i * boxSize, 700);
         }
