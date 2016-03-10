@@ -23,7 +23,7 @@ public class Move {
         setTempY(getY());
         switch (direction) {
             case RIGHT:
-                if (tempX < 28) {
+                if (tempX < 232) {
                     moveRight(obj);
                     setX(tempX);
                      obj.addX(this.x);
@@ -41,7 +41,7 @@ public class Move {
                 break;
 
             case UP:
-                if (tempY < 27) {
+                if (tempY < 231) {
                    
                     moveUp(obj);
                     setY(tempY);
@@ -61,7 +61,7 @@ public class Move {
                 break;
 
             case UPWARDLEFT:
-                if (tempY < 27 && tempX > 1) {
+                if (tempY < 231 && tempX > 1) {
                     moveUp(obj);
                     moveLeft(obj);
                     setX(tempX);
@@ -72,7 +72,7 @@ public class Move {
                 break;
 
             case UPWARDRIGHT:
-                if (tempY < 27 && tempX < 28) {
+                if (tempY < 231 && tempX < 232) {
                     moveUp(obj);
                     moveRight(obj);
                     setX(tempX);
@@ -94,7 +94,7 @@ public class Move {
                 break;
 
             case DOWNWARDRIGHT:
-                if (tempY > 1 && tempX < 28) {
+                if (tempY > 1 && tempX < 232) {
                     moveDown(obj);
                     moveRight(obj);
                     setX(tempX);
