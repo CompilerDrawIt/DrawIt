@@ -37,7 +37,7 @@ public class DrawIt extends JFrame {
     Move move = new Move();
 
     public DrawIt() {
-        objects = new ArrayList<ObjectDrawing>();
+          objects = new ArrayList<ObjectDrawing>();
     }
 
     public void initialize() {
