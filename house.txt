@@ -1,0 +1,38 @@
+draw house{
+color(blue)
+setPoint(100,99)
+50 times{
+move(right)
+}
+50 times{
+move(down)
+}
+50 times{
+move(left)
+}
+50 times{
+move(up)
+}
+color(red)
+setPoint(100,100)
+50 times{
+move(right)
+}
+25 times{
+move(upwardLeft)
+}
+25 times{
+move(downwardLeft)
+}
+color(green)
+setPoint(117,50)
+20 times{
+move(up)
+}
+16 times{
+move(right)
+}
+20 times{
+move(down)
+}
+}

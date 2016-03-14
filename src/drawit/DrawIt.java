@@ -107,7 +107,7 @@ public class DrawIt extends JFrame {
         }
 
         if (objects.get(n).getObjectName().equals(objectName)) {
-            move.move(direction, objects.get(n), x, y);
+            move.move(direction, objects.get(n), x, y, color);
         }
     }
    

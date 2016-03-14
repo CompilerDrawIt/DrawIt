@@ -5,6 +5,8 @@
  */
 package drawit;
 
+import java.awt.Color;
+
 /**
  *
  * @author Red Viper
@@ -16,7 +18,7 @@ public class Move {
     private int tempX;
     private int tempY;
 
-    public void move(Constants.direction direction, ObjectDrawing obj, int x, int y) {
+    public void move(Constants.direction direction, ObjectDrawing obj, int x, int y, Color color) {
         setX(x);
         setY(y);
         setTempX(getX());
@@ -26,8 +28,7 @@ public class Move {
                 if (tempX < 232) {
                     moveRight(obj);
                     setX(tempX);
-                     obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -35,8 +36,7 @@ public class Move {
                 if (tempX > 1) {
                     moveLeft(obj);
                     setX(tempX);
-                    obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }                
                 break;
 
@@ -46,8 +46,7 @@ public class Move {
                     moveUp(obj);
                     setY(tempY);
                     System.out.println("here"+y);
-                    obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -55,8 +54,7 @@ public class Move {
                 if (tempY > 1) {
                     moveDown(obj);
                     setY(tempY);
-                     obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -66,8 +64,7 @@ public class Move {
                     moveLeft(obj);
                     setX(tempX);
                     setY(tempY);
-                    obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -77,8 +74,7 @@ public class Move {
                     moveRight(obj);
                     setX(tempX);
                     setY(tempY);
-                    obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -88,8 +84,7 @@ public class Move {
                     moveLeft(obj);
                     setX(tempX);
                     setY(tempY);
-                     obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
 
@@ -99,8 +94,7 @@ public class Move {
                     moveRight(obj);
                     setX(tempX);
                     setY(tempY);
-                   obj.addX(this.x);
-                    obj.addY(this.y);
+                    obj.setPoint(this.x,this.y,color);
                 }
                 break;
         }

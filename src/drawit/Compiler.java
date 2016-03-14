@@ -51,7 +51,7 @@ public class Compiler extends JPanel {
 
     public void initializeWindow() {
         run = new JButton();
-        run.setText("Run");
+        run.setText("Draw");
         run.addActionListener(new runListener());
         code = new JTextArea(25, 50);
         JScrollPane scroll= new JScrollPane(code);
@@ -80,16 +80,16 @@ public class Compiler extends JPanel {
     public void parse(String[] line) {
         Pattern testAll = Pattern.compile("((^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$))|"
                 + "((^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$))|"
-                + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$))|"
+                + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,3})(\\s*)(,)(\\s*)(\\d{1,3})(\\s*)(\\))(\\s*$))|"
                 + "((^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$))|"
                 + "((^color)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
-                + "((^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
+                + "((^\\d{1,3})(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
         Pattern draw = Pattern.compile("(^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$)");
         Pattern move = Pattern.compile("(^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$)");
-        Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$)");
+        Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,3})(\\s*)(,)(\\s*)(\\d{1,3})(\\s*)(\\))(\\s*$)");
         Pattern direction = Pattern.compile("(^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$)");
-        Pattern color = Pattern.compile("(^color)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$)");
-        Pattern loop = Pattern.compile("(^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*)");
+        Pattern color = Pattern.compile("(^color)(\\s*)(\\()(\\s*)(black|red|green|blue)(\\s*)(\\))(\\s*$)");
+        Pattern loop = Pattern.compile("(^\\d{1,3})(\\s*)(times)(\\s*)(\\{)(\\s*)");
         Matcher m;
         int braceCnt = 0;
         boolean correctSyntax = true;
@@ -149,13 +149,13 @@ public class Compiler extends JPanel {
                 m = color.matcher(line[i]);
                 if (m.find()) {
                     System.out.println(m.group(5));
-                    if(m.group(5).equals("Black")){
+                    if(m.group(5).equals("black")){
                         c = Color.BLACK;
-                    } else if(m.group(5).equals("Red")){
+                    } else if(m.group(5).equals("red")){
                          c = Color.RED;
-                    } else if(m.group(5).equals("Green")){
+                    } else if(m.group(5).equals("green")){
                          c = Color.GREEN;
-                    } if(m.group(5).equals("Blue")){
+                    } if(m.group(5).equals("blue")){
                          c = Color.BLUE;
                     }
                             
