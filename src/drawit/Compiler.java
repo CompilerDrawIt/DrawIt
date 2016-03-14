@@ -17,7 +17,9 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
@@ -51,8 +53,9 @@ public class Compiler extends JPanel {
         run.setText("Run");
         run.addActionListener(new runListener());
         code = new JTextArea(25, 50);
-
-        add(code);
+        JScrollPane scroll= new JScrollPane(code);
+       scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        add(scroll);
         add(run);
     }
 
