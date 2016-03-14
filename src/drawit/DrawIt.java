@@ -8,6 +8,7 @@ package drawit;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -43,7 +44,10 @@ public class DrawIt extends JFrame {
     insideOf insideOf= new insideOf();
 
     public DrawIt() {
-          objects = new ArrayList<ObjectDrawing>();
+        initializeArr();
+    }
+    public void initializeArr(){
+        objects = new ArrayList<ObjectDrawing>();
     }
 
     public void initialize() {
@@ -277,6 +281,14 @@ public class DrawIt extends JFrame {
             obj.draw(g);
         }
     }
+    
+    @Override
+public void processWindowEvent(WindowEvent e) {
+    if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+        initializeArr();
+        dispose();
+    }
+}
 
     public static void main(String[] args) {
         // TODO code application logic here

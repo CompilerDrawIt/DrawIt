@@ -45,6 +45,7 @@ public class Compiler extends JPanel {
 
     public Compiler() {
         initializeWindow();
+        d.initializeArr();
 
     }
 
@@ -82,13 +83,13 @@ public class Compiler extends JPanel {
                 + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$))|"
                 + "((^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$))|"
                 + "((^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
-                + "((^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
+                + "((^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
         Pattern draw = Pattern.compile("(^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$)");
         Pattern move = Pattern.compile("(^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$)");
         Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$)");
         Pattern direction = Pattern.compile("(^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$)");
         Pattern fill = Pattern.compile("(^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$)");
-        Pattern loop = Pattern.compile("(^\\d)(\\s*)(times)(\\s*)(\\{)(\\s*)");
+        Pattern loop = Pattern.compile("(^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*)");
         Matcher m;
         int braceCnt = 0;
         boolean correctSyntax = true;
