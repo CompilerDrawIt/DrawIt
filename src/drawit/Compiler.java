@@ -76,7 +76,6 @@ public class Compiler extends JPanel {
             parse(lines);
         }
     }
-
     public void parse(String[] line) {
         Pattern testAll = Pattern.compile("((^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$))|"
                 + "((^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$))|"

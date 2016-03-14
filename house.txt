@@ -24,15 +24,4 @@ move(upwardLeft)
 25 times{
 move(downwardLeft)
 }
-color(green)
-setPoint(117,50)
-20 times{
-move(up)
-}
-16 times{
-move(right)
-}
-20 times{
-move(down)
-}
 }
