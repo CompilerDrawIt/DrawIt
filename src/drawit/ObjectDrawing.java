@@ -32,7 +32,7 @@ public class ObjectDrawing {
     /*
     ** color of the object specified by the fill function
      */
-    private int color;
+    private Color color;
 
     public ObjectDrawing(String name) {
         initialize();
@@ -103,8 +103,9 @@ public class ObjectDrawing {
     }
     
     public void draw(Graphics g){
-        g.setColor(Color.black);
+      
         for (i = 0; i < getSize(); i++) {
+              g.setColor(color);
             g.fillRect(getX(i) * boxSize - boxSize, 700 - (getY(i) * boxSize), boxSize, boxSize);
         }
     }
@@ -128,11 +129,12 @@ public class ObjectDrawing {
     ** Frame is like a cartersian plane
     ** where (1,1) is the first box at bottom left
      */
-    public void setPoint( int x, int y) {
+    public void setPoint( int x, int y, Color color) {
         addX(x);
         addY(y);
         DrawIt.x = x;
         DrawIt.y = y;
+        this.color = color;
     }
     
 }

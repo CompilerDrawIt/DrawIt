@@ -42,7 +42,7 @@ public class Compiler extends JPanel {
     Integer z;
     Constants.direction dir;
     String objName,objL, objN;
-
+    Color c = Color.BLACK;
     public Compiler() {
         initializeWindow();
         d.initializeArr();
@@ -82,13 +82,13 @@ public class Compiler extends JPanel {
                 + "((^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$))|"
                 + "((^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$))|"
                 + "((^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$))|"
-                + "((^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
+                + "((^color)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$))|"
                 + "((^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*))|(\\}$)");
         Pattern draw = Pattern.compile("(^draw)(\\s*)([a-zA-Z]+)(\\s*)(\\{)(\\s*$)");
         Pattern move = Pattern.compile("(^move)(\\s*)(\\()(\\s*)(left|right|up|down|upwardLeft|upwardRight|downwardLeft|downwardRight)(\\s*)(\\))(\\s*$)");
         Pattern setPoint = Pattern.compile("(^setPoint)(\\s*)(\\()(\\s*)(\\d{1,2})(\\s*)(,)(\\s*)(\\d{1,2})(\\s*)(\\))(\\s*$)");
         Pattern direction = Pattern.compile("(^atTheTopOf|^atTheRightOf|^atTheLeftOf|^insideOf|^copy)(\\s*)([a-zA-Z]+)(\\s*$)");
-        Pattern fill = Pattern.compile("(^fill)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$)");
+        Pattern color = Pattern.compile("(^color)(\\s*)(\\()(\\s*)(Black|Red|Green|Blue)(\\s*)(\\))(\\s*$)");
         Pattern loop = Pattern.compile("(^\\d{1,2})(\\s*)(times)(\\s*)(\\{)(\\s*)");
         Matcher m;
         int braceCnt = 0;
@@ -108,7 +108,6 @@ public class Compiler extends JPanel {
                 m = move.matcher(line[i]);
                 if (m.find()) {
                     System.out.println(m.group(5));
-                    System.out.println(" ni sud");
                     switch (m.group(5)) {
                         case "right":
                             dir = Constants.direction.RIGHT;
@@ -135,7 +134,7 @@ public class Compiler extends JPanel {
                             dir = Constants.direction.DOWNWARDLEFT;
                             break;
                     }
-                    d.move(dir, objName);
+                    d.move(dir, objName,c);
                     System.out.println("nisud");
                 }
                 m = setPoint.matcher(line[i]);
@@ -145,11 +144,21 @@ public class Compiler extends JPanel {
                     y = Integer.parseInt(m.group(9));
                     System.out.println("x: " + x);
                     System.out.println("y: " + m.group(9));
-                    d.setPoint(objName, x, y);
+                    d.setPoint(objName, x, y, c);
                 }
-                m = fill.matcher(line[i]);
+                m = color.matcher(line[i]);
                 if (m.find()) {
                     System.out.println(m.group(5));
+                    if(m.group(5).equals("Black")){
+                        c = Color.BLACK;
+                    } else if(m.group(5).equals("Red")){
+                         c = Color.RED;
+                    } else if(m.group(5).equals("Green")){
+                         c = Color.GREEN;
+                    } if(m.group(5).equals("Blue")){
+                         c = Color.BLUE;
+                    }
+                            
                 }
                 m = loop.matcher(line[i]);
                 if (m.find()) {
@@ -187,7 +196,7 @@ public class Compiler extends JPanel {
                 if (m.find()) {
                     System.out.println(m.group(3));
                     braceCnt++;
-                    d.draw(m.group(3), x, y);
+                    d.draw(m.group(3), x, y, c);
                     objName = m.group(3);
                 }
                 m = direction.matcher(line[i]);
@@ -197,23 +206,23 @@ public class Compiler extends JPanel {
                         objL= m.group(3);
                         objN= objName;
                         System.out.println("name: "+objN);
-                        d.atTheTopOf(objL,objN);
+                        //d.atTheTopOf(objL,objN);
 
                     } else if (m.group(1).equals("atTheRightOf")) {
                         objL= m.group(3);
                         objN= objName;
                         System.out.println("name: "+objN);
-                        d.atTheRightOf(objL,objN);
+                       // d.atTheRightOf(objL,objN);
                     } else if (m.group(1).equals("atTheLeftOf")) {
                         objL= m.group(3);
                         objN= objName;
                         System.out.println("name: "+objN);
-                        d.atTheLeftOf(objL,objN);
+                        //d.atTheLeftOf(objL,objN);
                     } else if (m.group(1).equals("insideOf")) {
                         objL= m.group(3);
                         objN= objName;
                         System.out.println("name: "+objN);
-                        d.insideOf(objL,objN);
+                        //d.insideOf(objL,objN);
                     } else if (m.group(1).equals("copy")) {
 
                     }
