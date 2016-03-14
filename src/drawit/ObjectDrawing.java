@@ -56,6 +56,10 @@ public class ObjectDrawing {
         return x.size();
     }
 
+    public int getSizeY() {
+        return y.size();
+    }
+
     /**
      * @return the x
      */

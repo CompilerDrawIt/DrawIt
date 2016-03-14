@@ -21,6 +21,8 @@ public class DrawIt extends JFrame {
     public static final int boxSize = 3;
     private int n;
     private int i;
+    public int x2=0,y2=0;
+    private Boolean topOf=false,rightOf=false,sideOf=false,leftOf=false;
     /*
     ** current point x of drawing
      */
@@ -35,6 +37,10 @@ public class DrawIt extends JFrame {
     private ArrayList<ObjectDrawing> objects;
 
     Move move = new Move();
+    atTheTopOf AtTheTopOf= new atTheTopOf();
+    atTheRightOf AtTheRightOf= new atTheRightOf();
+    atTheLeftOf AtTheLeftOf= new atTheLeftOf();
+    insideOf insideOf= new insideOf();
 
     public DrawIt() {
           objects = new ArrayList<ObjectDrawing>();
@@ -65,10 +71,36 @@ public class DrawIt extends JFrame {
     }
     
     public void setPoint(String objName, int x, int y){
-       for (ObjectDrawing obj : objects) {
-            if (obj.getObjectName().equals(objName)) {
-                obj.setPoint(x, y);
-            }
+        if(topOf==true){
+           for (ObjectDrawing obj : objects) {
+                   if (obj.getObjectName().equals(objName)) {
+                       obj.setPoint(x2, y2);
+                   }
+           }
+        }else if(rightOf==true){
+            for (ObjectDrawing obj : objects) {
+                   if (obj.getObjectName().equals(objName)) {
+                       obj.setPoint(x2, y2);
+                   }
+           }
+        }else if(leftOf==true){
+           for (ObjectDrawing obj : objects) {
+                   if (obj.getObjectName().equals(objName)) {
+                       obj.setPoint(x2, y2);
+                   }
+           }
+        }else if(sideOf==true){
+           for (ObjectDrawing obj : objects) {
+                   if (obj.getObjectName().equals(objName)) {
+                       obj.setPoint(x2, y2);
+                   }
+           }
+        }else{
+            for (ObjectDrawing obj : objects) {
+                   if (obj.getObjectName().equals(objName)) {
+                       obj.setPoint(x, y);
+                   }
+           }
         }
     }
 
@@ -101,6 +133,127 @@ public class DrawIt extends JFrame {
 
         if (objects.get(n).getObjectName().equals(objectName)) {
             move.move(direction, objects.get(n), x, y);
+        }
+    }
+    public void atTheTopOf(String objL, String objN) {
+         int max= objects.size();
+         int l;
+         for(n=0; n<max-1;){
+            if(objects.get(n).getObjectName().equals(objL)){
+                break;
+            }else{
+                 n++;
+            }
+         }
+         for(l=0; l<max-1;){
+            if(objects.get(l).getObjectName().equals(objN)){
+                break;
+            }else{
+                 l++;
+            }
+         }
+        if (objects.get(n).getObjectName().equals(objL)) {
+            if(objects.get(l).getObjectName().equals(objN)){
+                  AtTheTopOf.AtTheTopOf(objects.get(n), objects.get(l));
+                  x2= AtTheTopOf.x3;
+                  y2=AtTheTopOf.y3;
+                 topOf=true;
+                 //draw(objN,x2,y2);
+                /*objects.add(new ObjectDrawing(objL));
+                 objects.get(l).setOriginX(x2);
+                 objects.get(l).setOriginY(y2);*/
+            }
+        }
+    }
+      public void atTheRightOf(String objL, String objN) {
+         int max= objects.size();
+         int l;
+         for(n=0; n<max-1;){
+            if(objects.get(n).getObjectName().equals(objL)){
+                break;
+            }else{
+                 n++;
+            }
+         }
+         for(l=0; l<max-1;){
+            if(objects.get(l).getObjectName().equals(objN)){
+                break;
+            }else{
+                 l++;
+            }
+         }
+        if (objects.get(n).getObjectName().equals(objL)) {
+            if(objects.get(l).getObjectName().equals(objN)){
+                 AtTheRightOf.AtTheRightOf(objects.get(n), objects.get(l));
+                  x2= AtTheRightOf.x3;
+                  y2=AtTheRightOf.y3;
+                  rightOf=true;
+                 /*objects.add(new ObjectDrawing(objL));
+                 objects.get(l).setOriginX(x2);
+                 objects.get(l).setOriginY(y2);*/
+            }
+        }
+    }
+     public void atTheLeftOf(String objL, String objN) {
+         int max= objects.size();
+         int l;
+         for(n=0; n<max-1;){
+            if(objects.get(n).getObjectName().equals(objL)){
+                break;
+            }else{
+                 n++;
+            }
+         }
+         for(l=0; l<max-1;){
+            if(objects.get(l).getObjectName().equals(objN)){
+                break;
+            }else{
+                 l++;
+            }
+         }
+        if (objects.get(n).getObjectName().equals(objL)) {
+            if(objects.get(l).getObjectName().equals(objN)){
+                 AtTheLeftOf.AtTheLeftOf(objects.get(n), objects.get(l));
+                  x2= AtTheLeftOf.x3;
+                  y2=AtTheLeftOf.y3;
+                  leftOf=true;
+                 /*objects.add(new ObjectDrawing(objL));
+                 objects.get(l).setOriginX(x2);
+                 objects.get(l).setOriginY(y2);*/
+            }
+        }
+    }
+      public void insideOf(String objL, String objN) {
+         int max= objects.size();
+         int l;
+         for(n=0; n<max-1;){
+            if(objects.get(n).getObjectName().equals(objL)){
+                break;
+            }else{
+                 n++;
+            }
+         }
+         for(l=0; l<max-1;){
+            if(objects.get(l).getObjectName().equals(objN)){
+                break;
+            }else{
+                 l++;
+            }
+         }
+        System.out.println("diri ha ok! first " +objects.get(n).getObjectName());
+        System.out.println("diri ha ok! sec " +objects.get(l).getObjectName());
+        if (objects.get(n).getObjectName().equals(objL)) {
+            if(objects.get(l).getObjectName().equals(objN)){
+                 insideOf.InsideOf(objects.get(n), objects.get(l));
+                  x2= insideOf.x3;
+                  y2=insideOf.y3;
+                  sideOf=true;
+                 System.out.println("x2: "+x2);
+                 System.out.println("y2: "+y2);
+                 /*objects.add(new ObjectDrawing(objL));
+                 objects.get(l).setOriginX(x2);
+                 objects.get(l).setOriginY(y2);*/
+            }
         }
     }
 
